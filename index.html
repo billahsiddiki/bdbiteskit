@@ -3,407 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal 4P's Activity - Baki Billah Siddiki</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>Contact List</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
             padding: 20px;
-            color: #333;
+            background: #fff;
+            color: #000;
         }
-        .page {
-            width: 210mm;
-            height: 297mm;
-            background-color: white;
-            padding: 15mm 18mm;
-            position: relative;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 2px solid #000;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-        .header-left span {
-            display: block;
-            font-size: 9.5pt;
-            margin-bottom: 3px;
-            line-height: 1.2;
-        }
-        .header-left strong { font-weight: 700; }
-        .assignment-number { font-size: 9.5pt; font-weight: 700; }
-        .marks { font-size: 9.5pt; font-weight: 700; text-align: right; display: block; }
-        .position-box {
-            border: 1px solid #333;
-            padding: 6px 8px;
-            margin-bottom: 15px;
+
+        h1 {
             text-align: center;
-            font-weight: bold;
-            font-size: 10.5pt;
-            line-height: 1.3;
+            margin-bottom: 30px;
+            font-size: 24pt;
+            color: #1a1a1a;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 10px;
         }
-        .grid-container {
-            flex-grow: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            border: 2px solid #000;
-            position: relative;
-            overflow: hidden;
-        }
-        .quadrant {
-            padding: 10px 12px;
-            border: 1px solid #000;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .q-header {
-            text-transform: uppercase;
-            font-weight: 800;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
             font-size: 11pt;
-            margin-bottom: 1px;
-            color: #000;
-            line-height: 1.1;
         }
-        .q-sub {
-            font-style: italic;
-            font-size: 8.5pt;
-            color: #555;
-            margin-bottom: 8px;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-        .q-content {
-            font-size: 8pt;
-            line-height: 1.25;
-            flex: 1;
-            overflow: hidden;
-        }
-        .q-content ul {
-            list-style-type: disc;
-            margin-left: 14px;
-            margin-bottom: 6px;
-        }
-        .q-content li {
-            margin-bottom: 3px;
-        }
-        .bold-text {
-            font-weight: 700;
-            margin-bottom: 4px;
-            display: block;
-        }
-        .center-circle {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90px;
-            height: 90px;
-            background-color: #e8eaf6;
-            border: 2px solid #000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18pt;
-            font-weight: 800;
-            color: #000;
-            z-index: 10;
-        }
-        .footer {
-            margin-top: 12px;
-            font-size: 8.5pt;
-            text-align: center;
-            font-style: italic;
-        }
-        /* Export Button */
-        #exportBtn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background: #2E7D32;
+
+        thead {
+            background-color: #2c3e50;
             color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 11px;
+        }
+
+        th {
+            padding: 12px 8px;
+            text-align: left;
             font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        #exportBtn:hover { background: #1B5E20; }
-        #exportBtn:disabled { background: #999; cursor: not-allowed; }
-        /* Modal */
-        #pdfModal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #ddd;
         }
-        #pdfModal.show { display: flex; }
-        .modal-content {
-            background: white;
-            padding: 20px 25px;
-            border-radius: 8px;
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e8f4f8;
+        }
+
+        .roll-col {
+            width: 10%;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .name-col {
+            width: 55%;
+        }
+
+        .phone-col {
+            width: 35%;
+            font-family: 'Courier New', monospace;
+            color: #27ae60;
+            font-weight: 500;
+        }
+
+        .footer {
+            margin-top: 30px;
             text-align: center;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 9pt;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
         }
-        .modal-content h3 { margin-bottom: 10px; font-size: 16pt; }
-        .modal-content p { margin-bottom: 15px; font-size: 11px; color: #555; }
-        .modal-btns { display: flex; gap: 10px; justify-content: center; }
-        .modal-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .modal-btn.primary { background: #2E7D32; color: white; }
-        .modal-btn.secondary { background: #f0f0f0; color: #333; border: 1px solid #ccc; }
+
         @media print {
-            body { background: white; padding: 0; }
-            .page { box-shadow: none; width: 100%; height: 100%; padding: 15mm 18mm; }
-            #exportBtn, #pdfModal { display: none !important; }
-            .quadrant { overflow: visible; }
+            body {
+                padding: 0;
+            }
+            
+            h1 {
+                font-size: 20pt;
+            }
+            
+            table {
+                font-size: 10pt;
+            }
+            
+            th {
+                padding: 10px 6px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            td {
+                padding: 8px 6px;
+            }
+            
+            tbody tr:nth-child(even) {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 1.5cm;
         }
     </style>
 </head>
 <body>
-
-    <!-- Export Button -->
-    <button id="exportBtn">📄 Export High-Quality PDF</button>
-
-    <!-- PDF Modal -->
-    <div id="pdfModal">
-        <div class="modal-content">
-            <h3>Exporting PDF</h3>
-            <p>Generating print-ready PDF (4X resolution). This may take 10-15 seconds.</p>
-            <div class="modal-btns">
-                <button class="modal-btn secondary" id="cancelPdf">Cancel</button>
-                <button class="modal-btn primary" id="confirmPdf" disabled>Preparing…</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="page" id="pageContent">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <span><strong>Name:</strong> Baki Billah Siddiki</span>
-                <span><strong>Roll Number/Batch:</strong> 67 / BBA 30th</span>
-                <span><strong>Date:</strong> 09 April, 2026</span>
-            </div>
-            <div class="header-right">
-                <span class="assignment-number">Assignment #: 30BBA2026/M402-1</span>
-                <span class="marks">Marks: 10</span>
-            </div>
-        </div>
-
-        <!-- Position Applied For -->
-        <div class="position-box">
-            POSITION APPLIED FOR: GenNEXT Management Trainee (Brand & Customer Marketing) at bKash Limited
-        </div>
-
-        <!-- 4P Grid -->
-        <div class="grid-container">
-            <!-- Center Element -->
-            <div class="center-circle">ME</div>
-
-            <!-- 1. PRODUCT -->
-            <div class="quadrant">
-                <div class="q-header">PRODUCT</div>
-                <div class="q-sub">What specifically will you sell?</div>
-                <div class="q-content">
-                    <span class="bold-text">Core Capabilities:</span>
-                    <ul>
-                        <li><strong>Primary Research:</strong> 210+ surveys & 45+ KIIs for BIDA; findings delivered to Executive Chairman for national tourism policy reform.</li>
-                        <li><strong>Campaign Execution:</strong> Led 5-person team at Thrive EdTech: +24% app traffic, ×10 social reach, +20% retention across 15+ campaigns.</li>
-                        <li><strong>Fieldwork at Scale:</strong> 200+ Gen-Z participants across 20+ FGDs in 5 cities for Prothom Alo Digital.</li>
-                        <li><strong>Stakeholder Mgmt:</strong> C-suite, diplomats, military leaders at The Prestige Global; 20+ at Bangladesh Vision Summit 2024.</li>
-                        <li><strong>Data & Analytics:</strong> SQL · Python · Power BI · Tableau applied to live consulting datasets.</li>
-                    </ul>
-                    <span class="bold-text">Strategic Differentiators:</span>
-                    <ul>
-                        <li><strong>INSIDER:</strong> b-ACE Campus Ambassador, bKash — Fluent in bnext, GenNEXT & bTechWhiz. Zero ramp-up.</li>
-                        <li><strong>CHAMPION:</strong> Hult Prize 2024 National Winner — Led team to $1M Global Summit, Bangkok.</li>
-                        <li><strong>GLOBAL:</strong> Delegate, Regional Scrum Gathering Tokyo 2026. Active in Agile Bangladesh.</li>
-                        <li><strong>RESEARCH:</strong> BCRC case studies (ekShop, Shyamoli, KOW) + Singapore AI white paper.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 2. PRICE -->
-            <div class="quadrant">
-                <div class="q-header" style="text-align: right;">PRICE</div>
-                <div class="q-sub" style="text-align: right;">How much will you charge?</div>
-                <div class="q-content">
-                    <span class="bold-text">Compensation Framework:</span>
-                    <ul>
-                        <li>Aligned to standard GenNEXT MT band.</li>
-                        <li>Negotiation focused on total value: performance bonus, leadership fast-track, L&D investment, regional rotation.</li>
-                    </ul>
-                    <span class="bold-text">Key Metrics:</span>
-                    <ul>
-                        <li><strong>18-mo trajectory:</strong> Ambassador → Delegate → Policy Consultant. Every step without prior training.</li>
-                        <li><strong>210+ surveys & KIIs:</strong> One of Bangladesh's first full-scale primary demand assessments.</li>
-                        <li><strong>50K Community:</strong> Managed with 24% traffic growth and 20% retention uplift.</li>
-                        <li><strong>BDT 20 Lac+:</strong> Raised via nationwide campaigns for 15,000+ children across 64 districts.</li>
-                    </ul>
-                    <span class="bold-text">ROI Multipliers:</span>
-                    <ul>
-                        <li><strong>ZERO RAMP:</strong> 12 months in bKash ecosystem — immediate Day 1 productivity.</li>
-                        <li><strong>VOUCHED:</strong> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — on-record referee with warm referral.</li>
-                        <li><strong>NETWORK:</strong> Day-1 access: BIDA, Parjatan Corp, BCRC, Attractor Inc. Japan.</li>
-                        <li><strong>OUTCOMES:</strong> Business impact delivered before framework application.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 3. PROMOTION -->
-            <div class="quadrant">
-                <div class="q-header">PROMOTION</div>
-                <div class="q-sub">How will you let your employer know about it?</div>
-                <div class="q-content">
-                    <span class="bold-text">Strategic Channels:</span>
-                    <ul>
-                        <li><strong>Portfolio:</strong> linkedin.com/in/billahsiddiki — Published research, conference features, stakeholder stories.</li>
-                        <li><strong>Referral:</strong> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — Warm referral on record with hiring committee.</li>
-                        <li><strong>Faculty:</strong> Prof. Dr. M. Ridhwanul Haq, BCRC Chairman — Professional referee.</li>
-                        <li><strong>Policy:</strong> Chowdhury Ashik Mahmud bin Harun, Executive Chairman, BIDA — Direct endorsement for policy research leadership.</li>
-                    </ul>
-                    <span class="bold-text">Evidence of Impact:</span>
-                    <ul>
-                        <li><strong>Policy:</strong> BIDA tourism study (210+ surveys) → enabled Parjatan Corp policy reform.</li>
-                        <li><strong>Research:</strong> BCRC case studies + Singapore AI white paper on conversational AI deployment.</li>
-                        <li><strong>Social:</strong> Jhilimili Campaign Lead — BDT 20 Lac+ raised for disaster relief (Cyclone Remal & July Uprising).</li>
-                        <li><strong>Won:</strong> Hult Prize 2024 National Champion → Qualified for $1M Global Summit, Bangkok.</li>
-                    </ul>
-                    <span class="bold-text">Interview Differentiation:</span>
-                    <ul>
-                        <li>Live application of STP, 4P & MECE frameworks drawn from real fieldwork — not theoretical case prep.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 4. PLACE -->
-            <div class="quadrant">
-                <div class="q-header" style="text-align: right;">PLACE</div>
-                <div class="q-sub" style="text-align: right;">Where will you be willing to offer it?</div>
-                <div class="q-content">
-                    <span class="bold-text">Primary Target:</span>
-                    <ul>
-                        <li><strong>bKash Limited — Dhaka HQ.</strong></li>
-                        <li>Roles: Brand & Customer Marketing, Consumer Insights, or CVM.</li>
-                        <li>The role I seek is the one I have prepared for — from the inside.</li>
-                    </ul>
-                    <span class="bold-text">Best-Fit Functions:</span>
-                    <ul>
-                        <li><strong>Brand & Campaign Strategy:</strong> Maps to Thrive campaigns, Prestige Global stakeholder management, BCRC research.</li>
-                        <li><strong>Consumer Insight & Research:</strong> Maps to BIDA national demand study, Prothom Alo Gen-Z fieldwork, IBA research.</li>
-                    </ul>
-                    <span class="bold-text">MT Rotation Appetite:</span>
-                    <ul>
-                        <li>Product Marketing · MFS Partnerships · Corporate Strategy · Policy & Regulatory</li>
-                    </ul>
-                    <span class="bold-text">Availability & Flexibility:</span>
-                    <ul>
-                        <li><strong>August 2026:</strong> Pre-hire intake or internship from September 2026 onward.</li>
-                        <li><strong>Geographic:</strong> Bangladesh-first. International exposure: Tokyo · Bangkok · Singapore.</li>
-                        <li><strong>Preference:</strong> In-person, client-facing. Fieldwork is a strategic competency — actively sought.</li>
-                    </ul>
-                    <span class="bold-text">Proficiencies:</span>
-                    <ul>
-                        <li>Data: SQL · Python · Power BI · Tableau | Design: Figma · Illustrator · Canva | PM: Notion · Trello · Agile</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
+    <div class="container">
+        <h1>📞 Contact List</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="roll-col">Roll</th>
+                    <th class="name-col">Full Name</th>
+                    <th class="phone-col">Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="roll-col">5</td><td class="name-col">Md. Tasnim Talha Khan</td><td class="phone-col">01779036579</td></tr>
+                <tr><td class="roll-col">8</td><td class="name-col">Farhan Mehtab</td><td class="phone-col">01996374912</td></tr>
+                <tr><td class="roll-col">9</td><td class="name-col">Ihita Ishrar</td><td class="phone-col">01969565900</td></tr>
+                <tr><td class="roll-col">14</td><td class="name-col">Adiba Mustafa Tanisha</td><td class="phone-col">01748378456</td></tr>
+                <tr><td class="roll-col">19</td><td class="name-col">Farhat Lamisa Hossain</td><td class="phone-col">01757378806</td></tr>
+                <tr><td class="roll-col">20</td><td class="name-col">Shudipta Bhowmick Dip</td><td class="phone-col">01939930142</td></tr>
+                <tr><td class="roll-col">23</td><td class="name-col">K. M. Mashroor Hossain</td><td class="phone-col">01967859060</td></tr>
+                <tr><td class="roll-col">27</td><td class="name-col">Saiara Mahmud</td><td class="phone-col">01756785290</td></tr>
+                <tr><td class="roll-col">34</td><td class="name-col">Nusaiba Naim</td><td class="phone-col">01785711375</td></tr>
+                <tr><td class="roll-col">35</td><td class="name-col">Fahim Ahmed</td><td class="phone-col">01797309700</td></tr>
+                <tr><td class="roll-col">39</td><td class="name-col">Samiha Tahsin Medha</td><td class="phone-col">01970044799</td></tr>
+                <tr><td class="roll-col">40</td><td class="name-col">Ahnaf Ahmed Mahee</td><td class="phone-col">01703481270</td></tr>
+                <tr><td class="roll-col">42</td><td class="name-col">Faria Ferdous</td><td class="phone-col">01844288672</td></tr>
+                <tr><td class="roll-col">43</td><td class="name-col">A K M Azimul Asif Khan</td><td class="phone-col">01752244281</td></tr>
+                <tr><td class="roll-col">57</td><td class="name-col">Naim Uddin Shuvo</td><td class="phone-col">01991549213</td></tr>
+                <tr><td class="roll-col">63</td><td class="name-col">Muntasir Mehmud Abir</td><td class="phone-col">01914664182</td></tr>
+                <tr><td class="roll-col">64</td><td class="name-col">Azman Munir</td><td class="phone-col">01554332655</td></tr>
+                <tr><td class="roll-col">67</td><td class="name-col">Baki Billah Siddiki</td><td class="phone-col">01308965498</td></tr>
+                <tr><td class="roll-col">73</td><td class="name-col">Safia Islam Silve</td><td class="phone-col">01319212511</td></tr>
+                <tr><td class="roll-col">74</td><td class="name-col">Nazia Afrin Anita</td><td class="phone-col">01782757479</td></tr>
+                <tr><td class="roll-col">76</td><td class="name-col">Rafee Ibne Rokon</td><td class="phone-col">01832877669</td></tr>
+                <tr><td class="roll-col">79</td><td class="name-col">Mehreen Shibley</td><td class="phone-col">01990953775</td></tr>
+                <tr><td class="roll-col">82</td><td class="name-col">Juairia Haque Mahi</td><td class="phone-col">01791702398</td></tr>
+                <tr><td class="roll-col">86</td><td class="name-col">Lamim Wasek Khan Lodi</td><td class="phone-col">01684026011</td></tr>
+                <tr><td class="roll-col">91</td><td class="name-col">Syeda Wahida Sabrina</td><td class="phone-col">01796587832</td></tr>
+                <tr><td class="roll-col">95</td><td class="name-col">Mohammad Mahir Aziz</td><td class="phone-col">01846965995</td></tr>
+                <tr><td class="roll-col">96</td><td class="name-col">Ashraful Islam Durjoy</td><td class="phone-col">01729757153</td></tr>
+                <tr><td class="roll-col">97</td><td class="name-col">Shamit Islam</td><td class="phone-col">01611956225</td></tr>
+                <tr><td class="roll-col">105</td><td class="name-col">Zarin Sabah Raha</td><td class="phone-col">01972322006</td></tr>
+                <tr><td class="roll-col">107</td><td class="name-col">Tahsina Jannat</td><td class="phone-col">01790603009</td></tr>
+            </tbody>
+        </table>
+        
         <div class="footer">
-            Submitted to Sania Mahmood, Adjunct Faculty, M402 Strategic Brand Management, IBA, University of Dhaka
+            <p>Total Contacts: 30 | Generated on: <script>document.write(new Date().toLocaleDateString())</script></p>
         </div>
     </div>
-
-    <script>
-        // PDF Export Functionality
-        document.getElementById('exportBtn').addEventListener('click', async function() {
-            const modal = document.getElementById('pdfModal');
-            const confirmBtn = document.getElementById('confirmPdf');
-            const cancelBtn = document.getElementById('cancelPdf');
-            
-            modal.classList.add('show');
-            confirmBtn.textContent = 'Rendering High-Res…';
-            confirmBtn.disabled = true;
-            
-            try {
-                // Wait for fonts to load
-                await document.fonts.ready;
-                
-                // Capture the page at 4X scale for print quality
-                const canvas = await html2canvas(document.getElementById('pageContent'), {
-                    scale: 4,
-                    useCORS: true,
-                    backgroundColor: '#ffffff',
-                    logging: false,
-                    windowWidth: 794,  // A4 width in pixels at 96 DPI
-                    windowHeight: 1123 // A4 height in pixels at 96 DPI
-                });
-                
-                // Create PDF
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({
-                    orientation: 'portrait',
-                    unit: 'mm',
-                    format: 'a4'
-                });
-                
-                const imgData = canvas.toDataURL('image/png');
-                pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
-                pdf.save('4Ps_Activity_Baki_Billah_Siddiki.pdf');
-                
-                // Update modal
-                confirmBtn.textContent = '✓ Downloaded';
-                confirmBtn.disabled = false;
-                setTimeout(() => modal.classList.remove('show'), 2000);
-                
-            } catch (err) {
-                console.error('PDF export failed:', err);
-                confirmBtn.textContent = 'Error — Retry';
-                confirmBtn.disabled = false;
-                alert('Export failed. Try again or use Ctrl+P → Save as PDF.');
-            }
-        });
-
-        // Cancel PDF
-        document.getElementById('cancelPdf').addEventListener('click', function() {
-            document.getElementById('pdfModal').classList.remove('show');
-        });
-
-        // Ctrl+P fallback
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 'p') {
-                e.preventDefault();
-                window.print();
-            }
-        });
-    </script>
 </body>
 </html>
