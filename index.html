@@ -6,414 +6,305 @@
     <title>Personal 4P's Activity - Baki Billah Siddiki</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
             padding: 20px;
-            line-height: 1.4;
+            color: #333;
         }
-        
+
         .page {
-            max-width: 210mm;
-            margin: 0 auto;
-            background: white;
-            padding: 20mm;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            padding: 15mm 20mm;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
-        
+
+        /* Header Section */
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            font-size: 11pt;
-        }
-        
-        .header-left {
-            font-weight: 600;
-        }
-        
-        .header-right {
-            font-weight: 600;
-        }
-        
-        .title-bar {
-            background: #5476C9;
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-size: 20pt;
-            font-weight: bold;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
             margin-bottom: 15px;
         }
-        
-        .info-section {
+
+        .header-left span {
+            display: block;
+            font-size: 10pt;
+            margin-bottom: 4px;
+        }
+
+        .header-left strong {
+            font-weight: 700;
+        }
+
+        .assignment-number {
+            font-size: 10pt;
+            font-weight: 700;
+        }
+
+        .marks {
+            font-size: 10pt;
+            font-weight: 700;
+        }
+
+        /* Position Box */
+        .position-box {
+            border: 1px solid #333;
+            padding: 8px;
             margin-bottom: 20px;
-        }
-        
-        .info-row {
-            display: flex;
-            margin-bottom: 8px;
+            text-align: center;
+            font-weight: bold;
             font-size: 11pt;
         }
-        
-        .info-label {
-            font-weight: 600;
-            min-width: 180px;
-        }
-        
-        .info-value {
-            flex: 1;
-        }
-        
-        .due-date {
-            text-align: right;
-            font-weight: 600;
-        }
-        
-        .divider {
-            border-top: 1px solid #000;
-            margin: 15px 0;
-        }
-        
-        .section {
-            margin-bottom: 15px;
-            font-size: 11pt;
-        }
-        
-        .section-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .instructions {
-            margin-left: 20px;
-        }
-        
-        .instructions li {
-            margin-bottom: 8px;
-        }
-        
-        .position-field {
-            margin: 20px 0;
-            font-size: 11pt;
-        }
-        
-        .position-label {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .position-line {
-            border-bottom: 1px solid #000;
-            height: 25px;
-        }
-        
+
+        /* Grid Layout */
         .grid-container {
+            flex-grow: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 0;
             border: 2px solid #000;
-            margin-top: 20px;
             position: relative;
-            min-height: 500px;
         }
-        
-        .grid-cell {
+
+        .quadrant {
             padding: 15px;
             border: 1px solid #000;
-            position: relative;
+            overflow: hidden;
         }
-        
-        .grid-cell-header {
-            font-weight: bold;
-            font-size: 11pt;
-            margin-bottom: 5px;
+
+        .q-header {
             text-transform: uppercase;
+            font-weight: 800;
+            font-size: 12pt;
+            margin-bottom: 2px;
+            color: #000;
         }
-        
-        .grid-cell-subtitle {
+
+        .q-sub {
             font-style: italic;
-            font-size: 10pt;
+            font-size: 9pt;
+            color: #555;
             margin-bottom: 10px;
-            color: #333;
+            font-weight: 500;
         }
-        
-        .grid-content {
-            font-size: 9.5pt;
-            line-height: 1.5;
+
+        .q-content {
+            font-size: 8.5pt;
+            line-height: 1.3;
         }
-        
-        .grid-content ul {
+
+        .q-content ul {
+            list-style-type: disc;
             margin-left: 15px;
-            margin-top: 8px;
+            margin-bottom: 8px;
         }
-        
-        .grid-content li {
-            margin-bottom: 6px;
+
+        .q-content li {
+            margin-bottom: 4px;
         }
-        
+
+        .bold-text {
+            font-weight: 700;
+        }
+
+        /* Center Circle */
         .center-circle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: #E0E7F5;
+            width: 100px;
+            height: 100px;
+            background-color: #e8eaf6;
             border: 2px solid #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18pt;
-            font-weight: bold;
+            font-size: 20pt;
+            font-weight: 800;
+            color: #000;
             z-index: 10;
         }
-        
-        .product-cell { grid-column: 1; grid-row: 1; }
-        .price-cell { grid-column: 2; grid-row: 1; }
-        .promotion-cell { grid-column: 1; grid-row: 2; }
-        .place-cell { grid-column: 2; grid-row: 2; }
-        
-        .text-right {
-            text-align: right;
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            font-size: 9pt;
+            text-align: center;
+            font-style: italic;
         }
-        
-        .highlight {
-            font-weight: 600;
-        }
-        
-        .metric {
-            display: inline-block;
-            background: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin: 2px 0;
-        }
-        
+
         @media print {
             body {
-                background: white;
+                background-color: white;
                 padding: 0;
             }
             .page {
                 box-shadow: none;
+                width: 100%;
+                height: 100%;
                 padding: 15mm;
             }
         }
     </style>
 </head>
 <body>
+
     <div class="page">
         <!-- Header -->
         <div class="header">
-            <div class="header-left">Assignment #: 30BBA2026/M402-1</div>
-            <div class="header-right">Marks: 10</div>
-        </div>
-        
-        <!-- Title -->
-        <div class="title-bar">PERSONAL 4P'S ACTIVITY</div>
-        
-        <!-- Info Section -->
-        <div class="info-section">
-            <div class="info-row">
-                <div class="info-label">Name:</div>
-                <div class="info-value">Baki Billah Siddiki</div>
-                <div class="due-date">Due: Next Class, 09 April, 2026</div>
+            <div class="header-left">
+                <span><strong>Name:</strong> Baki Billah Siddiki</span>
+                <span><strong>Roll Number/Batch:</strong> 67 / BBA 30th</span>
+                <span><strong>Date:</strong> 09 April, 2026</span>
             </div>
-            <div class="info-row">
-                <div class="info-label">Roll Number/Batch:</div>
-                <div class="info-value">67 / BBA 30th</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Date:</div>
-                <div class="info-value">09 April, 2026</div>
+            <div class="header-right">
+                <span class="assignment-number">Assignment #: 30BBA2026/M402-1</span>
+                <span class="marks" style="text-align: right; display:block;">Marks: 10</span>
             </div>
         </div>
-        
-        <div class="divider"></div>
-        
-        <!-- Objective & Task -->
-        <div class="section">
-            <div class="section-title">Objective:</div>
-            <div>Practice identifying 4Ps in a real-world scenario</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">Task:</div>
-            <div>Create a <em>Personal</em> marketing mix</div>
-        </div>
-        
-        <!-- Instructions -->
-        <div class="section">
-            <div class="section-title">Instructions:</div>
-            <ol class="instructions">
-                <li>YOU are the product.</li>
-                <li>You have an upcoming interview with "The Company of Your Dreams".</li>
-                <li>Think of your experience, skills and talent as the "Product" and the potential employer as the "Consumer" of those skills.</li>
-                <li>To prepare for the interview, you will determine your own personal marketing mix with 4 P's. Remember the importance of your personal brand; and be sure to keep the points relevant to the task at hand, that is, to land this job!</li>
-                <li>Complete the worksheet and submit in next class.</li>
-            </ol>
-        </div>
-        
+
         <!-- Position Applied For -->
-        <div class="position-field">
-            <div class="position-label">POSITION APPLIED FOR:</div>
-            <div class="position-line" style="border-bottom: 1px solid #000; margin-top: 5px;">
-                GenNEXT Management Trainee (Brand & Customer Marketing) at bKash Limited
-            </div>
+        <div class="position-box">
+            POSITION APPLIED FOR: GenNEXT Management Trainee (Brand & Customer Marketing) at bKash Limited
         </div>
-        
+
         <!-- 4P Grid -->
         <div class="grid-container">
-            <!-- PRODUCT -->
-            <div class="grid-cell product-cell">
-                <div class="grid-cell-header">PRODUCT:</div>
-                <div class="grid-cell-subtitle">What specifically will you sell?</div>
-                <div class="grid-content">
-                    <strong>Core Capabilities:</strong>
+            
+            <!-- Center Element -->
+            <div class="center-circle">YOU</div>
+
+            <!-- 1. PRODUCT -->
+            <div class="quadrant">
+                <div class="q-header">PRODUCT</div>
+                <div class="q-sub">What specifically will you sell?</div>
+                <div class="q-content">
+                    <p class="bold-text">Core Capabilities:</p>
                     <ul>
-                        <li><span class="highlight">Primary Research Leadership</span> — Directed 210+ surveys & 45+ KIIs for BIDA; findings delivered to Executive Chairman for national tourism investment policy reform</li>
-                        <li><span class="highlight">Integrated Campaign Execution</span> — Led 5-person team at Thrive EdTech: <span class="metric">+24% app traffic</span>, <span class="metric">×10 social reach</span>, <span class="metric">+20% retention</span> across 15+ campaigns</li>
-                        <li><span class="highlight">Qualitative Fieldwork at Scale</span> — 200+ Gen-Z participants across 20+ FGDs in 5 cities for Prothom Alo Digital; 400+ students surveyed at IBA</li>
-                        <li><span class="highlight">Stakeholder Management</span> — C-suite, diplomats, military leaders at The Prestige Global; 20+ at Bangladesh Vision Summit 2024</li>
-                        <li><span class="highlight">Data & Analytics</span> — SQL · Python · Power BI · Tableau applied to live consulting datasets</li>
+                        <li><strong>Primary Research Leadership:</strong> Directed 210+ surveys & 45+ KIIs for BIDA; findings delivered to Executive Chairman for national tourism policy reform.</li>
+                        <li><strong>Integrated Campaign Execution:</strong> Led 5-person team at Thrive EdTech: +24% app traffic, ×10 social reach, +20% retention across 15+ campaigns.</li>
+                        <li><strong>Qualitative Fieldwork at Scale:</strong> 200+ Gen-Z participants across 20+ FGDs in 5 cities for Prothom Alo Digital.</li>
+                        <li><strong>Stakeholder Management:</strong> C-suite, diplomats, military leaders managed at The Prestige Global; 20+ facilitated at Bangladesh Vision Summit 2024.</li>
+                        <li><strong>Data & Analytics:</strong> SQL · Python · Power BI · Tableau applied to live consulting datasets.</li>
                     </ul>
-                    <strong style="margin-top: 10px; display: block;">Strategic Differentiators:</strong>
+                    <p class="bold-text">Strategic Differentiators:</p>
                     <ul>
-                        <li><span class="metric">INSIDER</span> b-ACE Campus Ambassador, bKash — Fluent in bnext, GenNEXT & bTechWhiz. Zero ramp-up</li>
-                        <li><span class="metric">CHAMPION</span> Hult Prize 2024 National Winner — $1M Global Summit, Bangkok</li>
-                        <li><span class="metric">GLOBAL</span> Delegate, Regional Scrum Gathering Tokyo 2026 (800 attendees)</li>
-                        <li><span class="metric">SCHOLAR</span> ISCEA Prize Global Case 2024 — 70% scholarship</li>
-                        <li><span class="metric">RESEARCH</span> BCRC case studies: ekShop, Shyamoli, KOW + Singapore AI white paper</li>
-                        <li><span class="metric">LEADER</span> IBA Comms Club, Asst. VP — 25-person team</li>
+                        <li><strong>INSIDER:</strong> b-ACE Campus Ambassador, bKash — Fluent in bnext, GenNEXT & bTechWhiz. Zero ramp-up required.</li>
+                        <li><strong>CHAMPION:</strong> Hult Prize 2024 National Winner — Led team to $1M Global Summit, Bangkok.</li>
+                        <li><strong>GLOBAL:</strong> Delegate, Regional Scrum Gathering Tokyo 2026. Active contributor to Agile Bangladesh.</li>
+                        <li><strong>RESEARCH:</strong> BCRC case studies (ekShop, Shyamoli, KOW) + Singapore AI white paper.</li>
                     </ul>
                 </div>
             </div>
-            
-            <!-- PRICE -->
-            <div class="grid-cell price-cell">
-                <div class="grid-cell-header text-right">PRICE:</div>
-                <div class="grid-cell-subtitle text-right">How much will you charge?</div>
-                <div class="grid-content">
-                    <strong>Compensation Framework:</strong>
+
+            <!-- 2. PRICE -->
+            <div class="quadrant">
+                <div class="q-header" style="text-align: right;">PRICE</div>
+                <div class="q-sub" style="text-align: right;">How much will you charge?</div>
+                <div class="q-content">
+                    <p class="bold-text">Compensation Framework:</p>
                     <ul>
-                        <li>Aligned to <span class="highlight">standard GenNEXT MT band</span></li>
-                        <li>Negotiation focused on total value: performance bonus · leadership fast-track · L&D investment · regional rotation</li>
+                        <li>Aligned to standard GenNEXT MT band.</li>
+                        <li>Negotiation focused on total value: performance bonus, leadership fast-track, L&D investment, and regional rotation.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Key Metrics:</strong>
+                    <p class="bold-text">Key Metrics:</p>
                     <ul>
-                        <li><span class="metric">18 mo</span> Trajectory: Ambassador → Delegate → Policy Consultant. Every step without prior training</li>
-                        <li><span class="metric">210+</span> Surveys & KIIs for BIDA — first full-scale primary demand assessment</li>
-                        <li><span class="metric">50K</span> Community managed; 24% traffic growth, 10× reach, 20% retention</li>
-                        <li><span class="metric">20L+</span> BDT raised for 15,000+ children across 64 districts</li>
+                        <li><strong>18-month trajectory:</strong> Ambassador → Delegate → Policy Consultant. Every step without prior training.</li>
+                        <li><strong>210+ surveys & KIIs:</strong> One of Bangladesh's first full-scale primary demand assessments.</li>
+                        <li><strong>50K Community:</strong> Managed with 24% traffic growth and 20% retention uplift.</li>
+                        <li><strong>BDT 20 Lac+:</strong> Raised via nationwide campaigns for 15,000+ children across 64 districts.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">ROI Multipliers:</strong>
+                    <p class="bold-text">ROI Multipliers:</p>
                     <ul>
-                        <li><span class="metric">ZERO RAMP</span> 12 months in bKash ecosystem — immediate Day 1 productivity</li>
-                        <li><span class="metric">VOUCHED</span> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — warm referral</li>
-                        <li><span class="metric">NETWORK</span> Day-1 access: BIDA, Parjatan Corp, BCRC, Attractor Inc. Japan</li>
-                        <li><span class="metric">OUTCOMES</span> Business impact delivered before framework application</li>
+                        <li><strong>ZERO RAMP:</strong> 12 months embedded in bKash ecosystem — immediate productivity from Day 1.</li>
+                        <li><strong>VOUCHED:</strong> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — on-record referee with warm referral.</li>
+                        <li><strong>NETWORK:</strong> Day-1 access: BIDA, Parjatan Corp, BCRC, Attractor Inc. Japan.</li>
+                        <li><strong>OUTCOMES:</strong> Every role entered without training — business impact delivered before framework application.</li>
                     </ul>
                 </div>
             </div>
-            
-            <!-- PROMOTION -->
-            <div class="grid-cell promotion-cell">
-                <div class="grid-cell-header">PROMOTION:</div>
-                <div class="grid-cell-subtitle">How will you let your employer know about it?</div>
-                <div class="grid-content">
-                    <strong>Strategic Channels:</strong>
+
+            <!-- 3. PROMOTION -->
+            <div class="quadrant">
+                <div class="q-header">PROMOTION</div>
+                <div class="q-sub">How will you let your employer know about it?</div>
+                <div class="q-content">
+                    <p class="bold-text">Strategic Channels:</p>
                     <ul>
-                        <li><span class="metric">Portfolio</span> linkedin.com/in/billahsiddiki — Published research, conference features, stakeholder stories</li>
-                        <li><span class="metric">Referral</span> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — On record with hiring committee</li>
-                        <li><span class="metric">Faculty</span> Prof. Dr. M. Ridhwanul Haq, BCRC Chairman — Professional referee</li>
-                        <li><span class="metric">Policy</span> Chowdhury Ashik Mahmud bin Harun, Executive Chairman, BIDA — Direct endorsement</li>
+                        <li><strong>Portfolio:</strong> linkedin.com/in/billahsiddiki — Published research, conference features, stakeholder stories.</li>
+                        <li><strong>Referral:</strong> Abu Usuf Md. Rashedul Amin, GM-HR, bKash — Warm referral on record with hiring committee.</li>
+                        <li><strong>Faculty:</strong> Prof. Dr. M. Ridhwanul Haq, BCRC Chairman — Professional referee.</li>
+                        <li><strong>Policy:</strong> Chowdhury Ashik Mahmud bin Harun, Executive Chairman, BIDA — Direct endorsement for policy research leadership.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Evidence of Impact:</strong>
+                    <p class="bold-text">Evidence of Impact:</p>
                     <ul>
-                        <li><span class="metric">Policy</span> BIDA tourism study (210+ surveys) → Parjatan Corp policy reform</li>
-                        <li><span class="metric">Research</span> BCRC cases: ekShop, Shyamoli, KOW + Singapore AI white paper</li>
-                        <li><span class="metric">Social</span> Jhilimili Campaign Lead — BDT 20 Lac+ for 15,000+ children</li>
-                        <li><span class="metric">Won</span> Hult Prize 2024 National Champion → $1M Global Summit, Bangkok</li>
+                        <li><strong>Policy:</strong> BIDA tourism study (210+ surveys) → enabled Parjatan Corp policy reform.</li>
+                        <li><strong>Research:</strong> BCRC case studies + Singapore AI white paper on conversational AI deployment.</li>
+                        <li><strong>Social:</strong> Jhilimili Campaign Lead — BDT 20 Lac+ raised for disaster relief (Cyclone Remal & July Uprising).</li>
+                        <li><strong>Won:</strong> Hult Prize 2024 National Champion → Qualified for $1M Global Summit, Bangkok.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Interview Differentiation:</strong>
+                    <p class="bold-text">Interview Differentiation:</p>
                     <ul>
-                        <li>Live application of STP, 4P & MECE frameworks from real fieldwork — not theoretical case prep</li>
-                        <li>Outcomes-first mindset validated across 8+ professional engagements</li>
+                        <li>Live application of STP, 4P & MECE frameworks drawn from real fieldwork — not theoretical case prep.</li>
                     </ul>
                 </div>
             </div>
-            
-            <!-- PLACE -->
-            <div class="grid-cell place-cell">
-                <div class="grid-cell-header text-right">PLACE:</div>
-                <div class="grid-cell-subtitle text-right">Where will you be willing to offer it?</div>
-                <div class="grid-content">
-                    <strong>Primary Target:</strong>
+
+            <!-- 4. PLACE -->
+            <div class="quadrant">
+                <div class="q-header" style="text-align: right;">PLACE</div>
+                <div class="q-sub" style="text-align: right;">Where will you be willing to offer it?</div>
+                <div class="q-content">
+                    <p class="bold-text">Primary Target:</p>
                     <ul>
-                        <li><span class="highlight">bKash Limited — Dhaka HQ</span></li>
-                        <li>Brand & Customer Marketing, Consumer Insights, or CVM</li>
-                        <li>The role I seek is the one I've prepared for — from the inside</li>
+                        <li><strong>bKash Limited — Dhaka HQ.</strong></li>
+                        <li>Roles: Brand & Customer Marketing, Consumer Insights, or CVM.</li>
+                        <li>The role I seek is the one I have prepared for — from the inside.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Best-Fit Functions:</strong>
+                    <p class="bold-text">Best-Fit Functions:</p>
                     <ul>
-                        <li><span class="highlight">Brand & Campaign Strategy</span> — Thrive campaigns, Prestige Global, BCRC research</li>
-                        <li><span class="highlight">Consumer Insight & Research</span> — BIDA study, Prothom Alo fieldwork, IBA research</li>
+                        <li><strong>Brand & Campaign Strategy:</strong> Maps to Thrive campaigns, Prestige Global stakeholder management, BCRC research.</li>
+                        <li><strong>Consumer Insight & Research:</strong> Maps to BIDA national demand study, Prothom Alo Gen-Z fieldwork, IBA research.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">MT Rotation Appetite:</strong>
+                    <p class="bold-text">MT Rotation Appetite:</p>
                     <ul>
                         <li>Product Marketing · MFS Partnerships · Corporate Strategy · Policy & Regulatory</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Geographic Flexibility:</strong>
+                    <p class="bold-text">Availability & Flexibility:</p>
                     <ul>
-                        <li>Bangladesh-first</li>
-                        <li>International exposure: Tokyo · Bangkok · Singapore</li>
+                        <li><strong>August 2026:</strong> Pre-hire intake or internship from September 2026 onward.</li>
+                        <li><strong>Geographic:</strong> Bangladesh-first. International exposure: Tokyo · Bangkok · Singapore.</li>
+                        <li><strong>Preference:</strong> In-person, client-facing. Fieldwork is a strategic competency — actively sought.</li>
                     </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Availability:</strong>
+                    <p class="bold-text">Proficiencies:</p>
                     <ul>
-                        <li><span class="metric">August 2026</span> (Graduation)</li>
-                        <li>Pre-hire intake from September 2026 onwards</li>
-                    </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Work Preference:</strong>
-                    <ul>
-                        <li>In-person, client-facing</li>
-                        <li>Fieldwork is a strategic competency — actively sought, never avoided</li>
-                    </ul>
-                    
-                    <strong style="margin-top: 10px; display: block;">Proficiencies:</strong>
-                    <ul>
-                        <li><span class="highlight">Data:</span> SQL · Python · Power BI · Tableau</li>
-                        <li><span class="highlight">Design:</span> Figma · Illustrator · Canva</li>
-                        <li><span class="highlight">PM:</span> Notion · Trello · Agile</li>
+                        <li>Data: SQL · Python · Power BI · Tableau | Design: Figma · Illustrator · Canva | PM: Notion · Trello · Agile</li>
                     </ul>
                 </div>
             </div>
-            
-            <!-- Center Circle -->
-            <div class="center-circle">YOU</div>
+
         </div>
-        
-        <!-- Footer -->
-        <div style="margin-top: 20px; font-size: 10pt; text-align: center; color: #666;">
-            Submitted to: Sania Mahmood, Adjunct Faculty, M402 Strategic Brand Management, IBA, University of Dhaka
+
+        <div class="footer">
+            Submitted to Sania Mahmood, Adjunct Faculty, M402 Strategic Brand Management, IBA, University of Dhaka
         </div>
     </div>
+
 </body>
 </html>
